@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Taasin Saquib</title>
+
+	<script
+	 src="https://code.jquery.com/jquery-3.2.1.slim.js"
+	 integrity="sha256-tA8y0XqiwnpwmOIl3SGAcFl2RvxHjA8qp0+1uCGmRmg="
+	 crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,600i,900" rel="stylesheet">
+
+	<script type="text/javascript" src="js/paper-full.js"></script>
+
+	<!-- <style type="text/css" src="styles.css"></style> -->
+
+	<style type="text/css">
+
+		body{
+			font-family: 'Nunito', sans-serif;
+		}
+
+		span{
+			font-size: 18px;
+		}
+
+		#name{
+			font-size: 60px;
+		}
+
+		#taasin{
+			height: 400px;
+			width: 400px;
+			display:block;
+    		margin:auto;
+    		padding: 50px;
+		}
+
+		#paper{
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			/*height:100%;*/
+			height: 4500px;
+			/*z-index:-1;*/
+		}
+
+
+		.section{
+			height: 900px;
+			/*height: 100%;*/
+			position: relative;
+			/*border: 1px solid black;*/
+		}
+
+		.content{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 3;
+		}
+
+		.logo{
+			height: 100px;
+			width: 100px;
+		}
+
+		.card{
+			/*border: 1px solid black;*/
+			padding-top: 30px;
+			text-align: center;
+			/*width: 40%;*/
+			margin: 0 auto;
+		}
+
+		.separate{
+			margin-top: 100px;
+			margin-bottom: 100px;
+		}
+
+
+	</style>
+
+	<script type="text/javascript">
+		
+		paper.install(window);
+		
+		window.onload = function() {
+			
+			var canvas = document.getElementById('paper');
+			paper.setup(canvas);
+
+
+			var path = new Rectangle(new Point(1200, 2100), new Point(1500, 2500));
+			var square = new Path.Rectangle(path);
+			square.fillColor = 'teal';
+
+			var circle = new Path.Circle(new Point(50, 3100), 300);
+			circle.fillColor = 'green';
+
+			var triangle = new Path.RegularPolygon(new Point(1450, 4300), 3, 700);
+			triangle.fillColor = 'pink';
+			
+			var circles = [];
+			var triangles = [];
+			var squares = [];
+
+			var top = 0;
+			var left = 0;
+			var right = window.innerWidth;
+			var bottom = window.innerHeight;
+
+			for(var i = 0; i < 15; i++){
+
+				var v1 = Math.floor(Math.random() * right);
+				var v2 = Math.floor(Math.random() * bottom);
+
+				var circle = new Path.Circle(new Point(v1, v2), 20);
+				circle.strokeColor = 'blue';
+
+
+				circles[i] = circle;
+
+
+				var v3 = Math.floor(Math.random() * right);
+				var v4 = Math.floor(Math.random() * bottom);
+
+				var triangle = new paper.Path.RegularPolygon(new paper.Point(v3, v4), 3, 20);
+				triangle.strokeColor = 'purple';
+				triangles[i] = triangle;
+
+
+				var v5 = Math.floor(Math.random() * right);
+				var v6 = Math.floor(Math.random() * bottom);
+
+				var path = new paper.Rectangle(new paper.Point(v5, v6), new paper.Point(v5+50, v6+50));
+				var square = new paper.Path.Rectangle(path);
+				square.strokeColor = 'blue';
+				squares[i] = square;
+				
+			}
+
+			view.onFrame = function(event) {
+				for(var j = 0; j < circles.length; j++){
+
+					circles[j].strokeColor.hue -= 1;
+				    circles[j].position.x += 1;
+
+					triangles[j].strokeColor.hue += 1;
+					triangles[j].rotate(2);
+					triangles[j].position.x += 0.5;
+
+					squares[j].strokeColor.hue += 1;
+					squares[j].position.x += 0.25;
+
+					if (circles[j].bounds.left > view.size.width) {
+						var newHeight = Math.random() * window.innerHeight;
+						circles[j].position.x = -circles[j].bounds.width;
+						circles[j].position.y = newHeight;
+					}
+
+					if (triangles[j].bounds.left > view.size.width) {
+						triangles[j].position.x = -triangles[j].bounds.width;
+					}
+
+					if (squares[j].bounds.left > view.size.width) {
+						squares[j].position.x = -squares[j].bounds.width;
+					}
+				}
+			}
+			
+			// Draw the view now:
+			paper.view.draw();
+		}
+	</script>
+
+
+
+
+</head>
+<body>
+
+	<canvas id="paper"></canvas>
+
+	<div id="intro" class="section" data-center-top="opacity:0;" data-top-top="opacity:1;" >
+		
+		<div class="content">
+			<p id="name">Taasin Saquib</p>
+		</div>
+		
+	</div>
+
+	<div id="info" class="section" data-center-top="opacity:0;" data-top-top="opacity:1;" >
+		
+		<div class="content">
+			
+			<h2>Hi!</h2>
+			<span>
+				<p>I'm Taasin and I'm a Computer Science and Engineering student at UCLA (class of 2020).</p>
+				<p>I am proudly from the Bay Area, and enjoy thinking about design as much as I do engineering. My hobbies include sketching, cooking, gardening, playing soccer, and browsing Kickstarter.</p>
+			</span>
+			
+			<img id="taasin" src="images/taasin.png">
+		</div>
+		
+		
+	</div>
+
+	<div id="work" class="section" data-center-top="opacity:0;" data-top-top="opacity:1;">
+		<div id="square"></div>
+		<div class="content">
+			<h3>Work Experience</h3>
+		
+			<div id="VTS" class="card col-xlg-6">
+				<a href="http://www.villagetechsolutions.org/Education.html">
+					<img src="images/vts.png" class="logo"> 
+				</a>
+				
+				<h4>Village Tech Solutions (2017)</h4>
+				<p>I worked on creating a new feature for project Looma, which brings modern equcational tools to students in Nepalese villages. The Looma box had a webcam, but no software interface to use it. Over the course of the summer I created a user interface from scratch to allow users to stream, record, save, and access video from the webcam; I used HTML/CSS and javascript. On the server side, I implemented websockets and command-line tools to allow the webcam to stream video to the browser through a local server. I used php and various node packages to implement ths.</p>
+			</div>
+		</div>
+		
+	</div>
+
+	<div id="projects" class="section" data-center-top="opacity:0;" data-top-top="opacity:1;">
+		
+		<div class="content">
+
+			<div class="separate">
+				<h3>Projects</h3>
+
+				<div id="Lights" class="project col-lg-4">
+					<h5>Lights</h5>
+					<p>Working on an application that syncronizes LEDs to music chosen by the user. The lights are controlled by an Arduino Nano, which recieves frequency data about the song from the browser.</p>
+				</div>
+
+				<div id="Sherlock" class="project col-lg-4">
+					<h5>Sherlock</h5>
+					<p>Created an application that integrated IBM’s Watson AI to conduct an interview with the user and compare his or her answers to data from various companies to determine if a candidate would be a good “fit” at the company. </p>
+				</div>
+
+				<div id="BruinNav" class="project col-lg-4">
+					<h5>Bruin Nav</h5>
+					<p>Learned and implemented the A* algorithm to create a navigation system to find the most efficient route between two geographical coordinates. Used binary search trees to store locations based on their coordinates.</p>
+				</div>
+			</div>
+
+			<br>
+			<br>
+
+			<div class="separate">
+				<h3>Hobbies</h3>
+
+				<div id="Photography" class="project col-lg-4">
+					<h5>Photography</h5>
+					<p>I'm an amateur photographer and am currently working on creating a website to showcase my pictures.</p>
+				</div>
+
+				<div id="Music" class="project col-lg-4">
+					<h5>Music</h5>
+					<p>I'm interested in music production, and have created a fun voice sampler application.</p>
+				</div>
+			</div>
+
+		</div>
+		
+	</div>
+
+	<div id="contact" class="section" data-center-top="opacity:0;" data-top-top="opacity:1;">
+		<div class="content">
+			<div id="contact">
+				<h3>Contact Me</h3>
+				<p>taasin.saquib@gmail.com</p>
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="js/skrollr.js"></script>
+	<script type="text/javascript">
+		var s = skrollr.init();
+	</script>
+	
+</body>
+</html>
